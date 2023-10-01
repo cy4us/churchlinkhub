@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h1>Home</h1>
+
+    <div class="alert alert-info">
+        <strong>Info!</strong> It is currently not possible to search for the component
+      </div>
+
+    <div class="mb-3">
+        {{ wtf.quick_form(form) }}
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Link</th>
+                <th>Keywords</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for link in links %}
+            <tr>
+                <td>{{ link.category.category }}</td>
+                <td><a target="_blank" href="{{ link.link }}">{{ link.link }}</a></td>
+                <td>{{ link.keywords }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
