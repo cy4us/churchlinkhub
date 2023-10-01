@@ -1,3 +1,4 @@
+# übernommen und zum Teil angepasst
 services:
   mysql:
     image: mariadb
@@ -25,13 +26,6 @@ services:
     restart: always
     environment:
         - DATABASE_URL=mysql+pymysql://churchlink:mysqlserver@dbserver/churchlinkhub
-    volumes:
-      - ./app:/home/churchlinkhub/app:ro
-      - ./migrations:/home/churchlinkhub/migrations:rw
-      - ./churchlinkhub.py:/home/churchlinkhub/churchlinkhub.py:ro
-      - ./wsgi.py:/home/churchlinkhub/wsgi.py:ro
-      - ./config.py:/home/churchlinkhub/config.py:ro
-     # - ./boot.sh:/home/churchlinkhub/boot.sh:ro
     depends_on:
       - mysql
     links:

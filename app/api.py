@@ -1,3 +1,4 @@
+# Übernommen und z.T. angepasst
 from sqlalchemy import or_
 from app import app, db
 from app.models import Link, User
@@ -6,6 +7,7 @@ from flask import jsonify
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 
 
+#Übernommen
 #### Section for Authentication
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth()
@@ -18,6 +20,7 @@ def get_token():
     db.session.commit()
     return jsonify({'token':token})
 
+#Übernommen
 @app.route('/api/tokens', methods=['DELETE'])
 @token_auth.login_required
 def revoke_token():
@@ -34,14 +37,17 @@ def verify_password(username,password):
         return user
     return None
 
+#Übernommen
 @basic_auth.error_handler
 def basic_auth_error(status):
     return error_response(status)
 
+#Übernommen
 @token_auth.verify_token
 def verify_token(token):
     return User.check_token(token) if token else None
 
+#Übernommen
 @token_auth.error_handler
 def token_auth_error(status):
     return error_response(status)
@@ -49,6 +55,7 @@ def token_auth_error(status):
 
 ## End Tokens
 
+# Eigenentwicklung
 @app.route('/api/links/<string:search>', methods=['GET'])
 @token_auth.login_required
 def get_links_of(search):
@@ -60,6 +67,7 @@ def get_links_of(search):
     data = {'links':[link.to_dict() for link in links]}
     return jsonify(data)
 
+# Eigenentwicklung
 @app.route('/api/links', methods=['GET'])
 @token_auth.login_required
 def get_links():

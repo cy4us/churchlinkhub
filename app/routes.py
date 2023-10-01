@@ -1,10 +1,12 @@
-from flask import render_template, flash, redirect, url_for, request, g
+#Übernommen und z.T angepasst
+from flask import render_template, flash, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy import or_
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, SearchForm
-from app.models import User, Link, Category
+from app.models import User, Link
 
+# Eigenentwicklung
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
@@ -24,6 +26,7 @@ def index():
         links = Link.query.all()
     return render_template('index.html', title='Home', form=form, links=links)
 
+# Übernommen
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -39,11 +42,13 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
 
+#Übernommen
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+#Übernommen
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:

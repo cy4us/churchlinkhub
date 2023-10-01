@@ -1,4 +1,4 @@
-#from hashlib import md5
+# Übernommen und z.T. angepasst
 from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,6 +6,7 @@ import base64
 from datetime import datetime,timedelta
 import os
 
+#Übernommen
 class User(UserMixin, db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -54,12 +55,12 @@ class User(UserMixin, db.Model):
         return user     # Token ist gültig
     
 
-
+#Übernommen
 @login.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+# Eigententwicklung
 class Category(db.Model):
     category_id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(140), index=True, unique=True)
@@ -68,6 +69,7 @@ class Category(db.Model):
     def __repr__(self):
         return '<Category {}>'.format(self.category)
 
+# Eigententwicklung
 class Link(db.Model):
     link_id = db.Column(db.Integer, primary_key=True)
     link = db.Column(db.String(250), index=True, unique=True)

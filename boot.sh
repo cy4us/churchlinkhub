@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Übernommen und z.T. angepasst
 source venv/bin/activate
 while true; do
     flask db migrate

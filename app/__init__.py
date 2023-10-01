@@ -1,3 +1,4 @@
+# Übernommen und z.T. angepasst
 import logging
 from logging.handlers import RotatingFileHandler
 import os
@@ -10,6 +11,7 @@ from sqlalchemy import inspect
 from flask_login import LoginManager
 from config import Config
 
+# Übernommen
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
@@ -19,6 +21,7 @@ login.login_view = 'login'
 login.login_message = 'Please log in to access this page.'
 bootstrap = Bootstrap(app)
 
+# Übernommen
 if not app.debug:
     if not os.path.exists('logs'):
         os.mkdir('logs')
@@ -32,13 +35,15 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     app.logger.info('Churchlinkhub startup')
 
+# Übernommen
 from app import routes, models, errors, api
 
+# Eigenentwicklung
 import json
 from app.models import Category, Link
 with app.app_context():
     
-    # check if db is ready - if not skip it
+    # check if db is ready - if yes start import of data 
     insp = inspect(db.engine)
     if insp.has_table('user'):
 
@@ -50,6 +55,7 @@ with app.app_context():
             with open(app.config['JSON_PATH'],'r') as file:
                 data = json.load(file)
         except:
+            # if it's not working, a hard-coded json file is used as data
             app.logger.info("File " + app.config['JSON_PATH'] + " not found")
             app.logger.info("Using fallback")
 

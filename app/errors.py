@@ -1,3 +1,4 @@
+# Alles übernommen aus dem Unterricht
 from flask import render_template, request, jsonify
 from app import app, db
 from werkzeug.http import HTTP_STATUS_CODES
